@@ -136,90 +136,88 @@ const ProductContainer = () => {
     console.log(productsFiltered)
 
     return (
+        <>
+            {loading === false ? (
+                <Center>
+                    <VStack w="100%" space={5} alignSelf="center">
 
-        <Center>
-            <VStack w="100%" space={5} alignSelf="center">
 
-
-                <Input
-                    onFocus={openList}
-                    onChangeText={(text) => searchProduct(text)}
-                    placeholder="Search"
-                    variant="filled"
-                    width="100%"
-                    borderRadius="10"
-                    py="1"
-                    px="2"
-                    InputLeftElement={<Icon ml="2" size="4" color="gray.400" as={<Ionicons name="ios-search" />} />}
-                    InputRightElement={focus === true ? <Icon ml="2" size="4" color="gray.400" as={<Ionicons name="close" size="12" color="black" />} /> : null}
-                />
-            </VStack>
-            {focus === true ? (
-                <SearchedProduct
-                    productsFiltered={productsFiltered}
-                />
-            ) : (
-
-                <ScrollView>
-                    <View>
-                        <Banner />
-                    </View>
-                    <View >
-                        <CategoryFilter
-                            categories={categories}
-                            categoryFilter={changeCtg}
-                            productsCtg={productsCtg}
-                            active={active}
-                            setActive={setActive}
+                        <Input
+                            onFocus={openList}
+                            onChangeText={(text) => searchProduct(text)}
+                            placeholder="Search"
+                            variant="filled"
+                            width="100%"
+                            borderRadius="10"
+                            py="1"
+                            px="2"
+                            InputLeftElement={<Icon ml="2" size="4" color="gray.400" as={<Ionicons name="ios-search" />} />}
+                            InputRightElement={focus === true ? <Icon ml="2" size="4" color="gray.400" as={<Ionicons name="close" size="12" color="black" />} /> : null}
                         />
-                    </View>
-                    {productsCtg.length > 0 ? (
-                        <View style={styles.listContainer}>
-                            {productsCtg.map((item) => {
-                                return (
-                                    <ProductList
-                                        // navigation={props.navigation}
-                                        key={item._id.$oid}
-                                        item={item}
-                                    />
-                                )
-                            })}
-                        </View>
+                    </VStack>
+                    {focus === true ? (
+                        <SearchedProduct
+                            productsFiltered={productsFiltered}
+                        />
                     ) : (
-                        <View style={[styles.center, { height: height / 2 }]}>
-                            <Text>No products found</Text>
-                        </View>
-                    )}
 
-                </ScrollView>)}
-
-            {/* <View>
-
-                    <View style={styles.listContainer} >
-                        <FlatList
-                            //    horizontal
-                            columnWrapperStyle={{ justifyContent: 'space-between' }}
-                            numColumns={2}
-                            data={products}
-                            // renderItem={({item}) => <Text>{item.brand}</Text>}
-                            renderItem={({ item }) => <ProductList key={item.id} item={item} />}
-                            keyExtractor={item => item.name}
-                        />
-                    </View>
-                </View> */}
-        </Center>
-
+                        <ScrollView>
+                            <View>
+                                <Banner />
+                            </View>
+                            <View >
+                                <CategoryFilter
+                                    categories={categories}
+                                    categoryFilter={changeCtg}
+                                    productsCtg={productsCtg}
+                                    active={active}
+                                    setActive={setActive}
+                                />
+                            </View>
+                            {productsCtg.length > 0 ? (
+                                <View style={styles.listContainer}>
+                                    {productsCtg.map((item) => {
+                                        return (
+                                            <ProductList
+                                                // navigation={props.navigation}
+                                                key={item._id.$oid}
+                                                item={item}
+                                            />
+                                        )
+                                    })}
+                                </View>
+                            ) : (
+                                <View style={[styles.center, { height: height / 2 }]}>
+                                    <Text>No products found</Text>
+                                </View>
+                            )}
+                        </ScrollView>)}
+                </Center>) : (<Container style={[styles.center, { backgroundColor: "#f2f2f2" }]}>
+                    <ActivityIndicator size="large" color="red" />
+                </Container>)}
+        </>
     )
 }
-
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        flexWrap: "wrap",
+        backgroundColor: "gainsboro",
     },
+    listContainer: {
+        //   height: "100%",
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "flex-start",
+        flexWrap: "wrap",
+        backgroundColor: "gainsboro",
+    },
+    center: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1
+    }
 });
+
 
 export default ProductContainer;
 
