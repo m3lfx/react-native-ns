@@ -1,7 +1,7 @@
 import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
 
-import Orders from "../Screens/Admin/Order"
+import Orders from "../Screens/Admin/Orders"
 import Products from "../Screens/Admin/Products"
 import ProductForm from "../Screens/Admin/ProductForm"
 import Categories from "../Screens/Admin/Categories"

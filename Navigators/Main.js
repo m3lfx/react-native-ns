@@ -8,12 +8,15 @@ import UserNavigator from "./UserNavigator";
 
 import CartIcon from "../Shared/CartIcon";
 import CartNavigator from "./CartNavigator";
+import AdminNavigator from "./AdminNavigator";
+import AuthGlobal from "../Context/Store/AuthGlobal";
 
 
 
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
+    const context = useContext(AuthGlobal)
     return (
         <Tab.Navigator
             initialRouteName="Home"
@@ -61,7 +64,7 @@ const Main = () => {
 
             <Tab.Screen
                 name="Admin"
-                component={HomeNavigator}
+                component={AdminNavigator}
                 options={{
                     tabBarIcon: ({ color }) => {
                         return <Icon
