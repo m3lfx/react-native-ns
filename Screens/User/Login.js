@@ -9,7 +9,22 @@ const Login = (props) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState("")
     let navigation = useNavigation()
+
+    const handleSubmit = () => {
+        const user = {
+          email,
+          password,
+        };
+    
+        if (email === "" || password === "") {
+          setError("Please fill in your credentials");
+        } else {
+        //   loginUser(user, context.dispatch);
+        console.log("error")
+        }
+      }
     return (
         <FormContainer>
             <Input
