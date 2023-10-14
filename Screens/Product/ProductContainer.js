@@ -33,7 +33,7 @@ const ProductContainer = () => {
                 setProductsFiltered(res.data);
                 setProductsCtg(res.data);
                 setInitialState(res.data);
-                setLoading(false)
+                // setLoading(false)
             })
             .catch((error) => {
                 console.log(error)
@@ -56,7 +56,7 @@ const ProductContainer = () => {
             setActive();
             setInitialState();
             setProductsCtg()
-            setLoading()
+            // setLoading()
         };
 
     }, [])
@@ -82,7 +82,7 @@ const ProductContainer = () => {
                 ? [setProductsCtg(initialState), setActive(true)]
                 : [
                     setProductsCtg(
-                        products.filter((i) => i.category.$oid === ctg),
+                        products.filter((i) => i.category !== null && i.category._id === ctg),
                         setActive(true)
                     ),
                 ];
