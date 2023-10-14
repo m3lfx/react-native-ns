@@ -26,40 +26,40 @@ const ProductContainer = () => {
         setFocus(false);
         setActive(-1)
         axios
-          .get(`${baseURL}products`)
-          .then((res) => {
-            console.log(res.data)
-            setProducts(res.data);
-            setProductsFiltered(res.data);
-            setProductsCtg(res.data);
-            setInitialState(res.data);
-            setLoading(false)
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-    
+            .get(`${baseURL}products`)
+            .then((res) => {
+                console.log(res.data)
+                setProducts(res.data);
+                setProductsFiltered(res.data);
+                setProductsCtg(res.data);
+                setInitialState(res.data);
+                setLoading(false)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
         axios
-          .get(`${baseURL}categories`)
-          .then((res) => {
-            setCategories(res.data)
-          })
-          .catch((error) => {
-            console.log('Api call error')
-          })
-    
+            .get(`${baseURL}categories`)
+            .then((res) => {
+                setCategories(res.data)
+            })
+            .catch((error) => {
+                console.log('Api call error')
+            })
+
         return () => {
-          setProducts([]);
-          setProductsFiltered([]);
-          setFocus();
-          setCategories([]);
-          setActive();
-          setInitialState();
-          setProductsCtg()
-          setLoading()
+            setProducts([]);
+            setProductsFiltered([]);
+            setFocus();
+            setCategories([]);
+            setActive();
+            setInitialState();
+            setProductsCtg()
+            setLoading()
         };
-    
-      }, [])
+
+    }, [])
 
     const searchProduct = (text) => {
         console.log(text)
@@ -94,7 +94,7 @@ const ProductContainer = () => {
 
         <Center>
             <VStack w="100%" space={5} alignSelf="center">
-                
+
 
                 <Input
                     onFocus={openList}
@@ -117,7 +117,7 @@ const ProductContainer = () => {
 
                 <ScrollView>
                     <View>
-                    <Banner />
+                        <Banner />
                     </View>
                     <View >
                         <CategoryFilter
@@ -177,3 +177,15 @@ const styles = StyleSheet.create({
 });
 
 export default ProductContainer;
+
+// [{ "name": "Electronics" },
+// { "name": "Beauty" },
+// {
+//     "name": "Computers"
+// }, {
+//     "name": "Home"
+// }, {
+//     "name": "Garden"
+// }, {
+//     "name": "Games"
+// }]
