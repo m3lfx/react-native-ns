@@ -1,17 +1,19 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Image, View, StyleSheet, Text, ScrollView } from "react-native";
-import {Box, HStack, Container, H1, Center, Heading, Button} from 'native-base'
-
+import { Box, HStack, Container, H1, Center, Heading, Button } from 'native-base'
+import Toast from 'react-native-toast-message';
+import * as actions from '../../Redux/Actions/cartActions';
+import { useSelector, useDispatch } from 'react-redux'
 const SingleProduct = (props) => {
     const [item, setItem] = useState(props.route.params.item);
     const [availability, setAvailability] = useState('')
-   
+    const dispatch = useDispatch()
     return (
-        
+
         <Center flexGrow={1}>
-            <ScrollView style={{marginBottom: 80, padding: 5}}>
+            <ScrollView style={{ marginBottom: 80, padding: 5 }}>
                 <View>
-                    <Image 
+                    <Image
                         source={{
                             uri: item.image ? item.image : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png'
                         }}
@@ -19,7 +21,7 @@ const SingleProduct = (props) => {
                         style={styles.image}
                     />
                 </View>
-                
+
                 <View style={styles.contentContainer}>
                     <Heading style={styles.contentHeader} size='xl'>{item.name}</Heading>
                     <Text style={styles.contentText}>{item.brand}</Text>
@@ -37,12 +39,20 @@ const SingleProduct = (props) => {
             <View style={styles.bottomContainer}>
                 <HStack space={3} justifyContent="center">
                     <Text style={styles.price}>${item.price}</Text>
-                    <Button size="sm" >Add</Button>
+                    <Button size="sm" onPress={() => {
+                        dispatch(actions.addToCart({ ...props, quantity: 1, })),
+                            Toast.show({
+                                topOffset: 60,
+                                type: "success",
+                                text1: `${item.name} added to Cart`,
+                                text2: "Go to your cart to complete order"
+                            })
+                    }}>Add</Button>
                 </HStack>
                 {/* <HStack alignSelf="right">
                     <Button size="sm" >Add</Button>
                 </HStack> */}
-               
+
                 {/* <Right>
                    <EasyButton 
                    primary
