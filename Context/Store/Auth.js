@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import authReducer from "../Reducers/Auth.reducer";
 import { setCurrentUser } from "../Actions/Auth.actions";
-import AuthGlobal from './AuthGlobal'
+import AuthGlobal from './AuthGlobal.js'
 
 const Auth = props => {
     console.log(props.children)

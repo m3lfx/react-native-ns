@@ -10,6 +10,7 @@ import ProductContainer from './Screens/Product/ProductContainer';
 import Header from './Shared/Header';
 import Main from './Navigators/Main';
 import Toast from "react-native-toast-message";
+import Auth from "./Context/Store/Auth"
 const newColorTheme = {
   brand: {
     900: "#8287af",
@@ -20,17 +21,19 @@ const newColorTheme = {
 const theme = extendTheme({ colors: newColorTheme });
 export default function App() {
   return (
-    <Provider store={store}>
-      <NativeBaseProvider theme={theme}>
-        <NavigationContainer>
-          <Header />
-          <Main />
-          <Toast />
-          
-        </NavigationContainer>
-      </NativeBaseProvider>
+    <Auth>
+      <Provider store={store}>
+        <NativeBaseProvider theme={theme}>
+          <NavigationContainer>
+            <Header />
+            <Main />
+            <Toast />
+
+          </NavigationContainer>
+        </NativeBaseProvider>
       </Provider>
-    
+    </Auth>
+
   );
 }
 

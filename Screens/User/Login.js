@@ -1,11 +1,13 @@
 import Input from "../../Shared/Form/Input";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet } from 'react-native'
 import FormContainer from "../../Shared/Form/FormContainer";
 import { Button } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 import Error from '../../Shared/Error'
+import AuthGlobal from '../../Context/Store/AuthGlobal'
 const Login = (props) => {
+    const context = useContext(AuthGlobal)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -25,6 +27,21 @@ const Login = (props) => {
             console.log("error")
         }
     }
+
+    useEffect(() => {
+        if (context.stateUser.isAuthenticated === true) {
+          navigation.navigate("User Profile")
+        }
+      }, [context.stateUser.isAuthenticated])
+
+      AsyncStorage.getAllKeys((err, keys) => {
+      AsyncStorage.multiGet(keys, (error, stores) => {
+        stores.map((result, i, store) => {
+          console.log({ [store[i][0]]: store[i][1] });
+          return true;
+        });
+      });
+    });
     return (
         <FormContainer>
             <Input
