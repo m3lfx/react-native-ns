@@ -23,22 +23,43 @@ const ProductContainer = () => {
     const [initialState, setInitialState] = useState([])
     const [productsCtg, setProductsCtg] = useState([])
     useEffect(() => {
-        setProducts(data);
-        setProductsFiltered(data);
         setFocus(false);
-        setCategories(productCategories)
         setActive(-1)
-        setInitialState(data);
+        axios
+          .get(`${baseURL}products`)
+          .then((res) => {
+            console.log(res.data)
+            setProducts(res.data);
+            setProductsFiltered(res.data);
+            setProductsCtg(res.data);
+            setInitialState(res.data);
+            setLoading(false)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+    
+        axios
+          .get(`${baseURL}categories`)
+          .then((res) => {
+            setCategories(res.data)
+          })
+          .catch((error) => {
+            console.log('Api call error')
+          })
+    
         return () => {
-            setProducts([])
-            setProductsFiltered([]);
-            setFocus();
-            setCategories([])
-            setActive()
-            setInitialState([])
-            setProductsCtg([])
-        }
-    }, [])
+          setProducts([]);
+          setProductsFiltered([]);
+          setFocus();
+          setCategories([]);
+          setActive();
+          setInitialState();
+          setProductsCtg()
+          setLoading()
+        };
+    
+      }, [])
 
     const searchProduct = (text) => {
         console.log(text)
