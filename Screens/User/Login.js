@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import FormContainer from "../../Shared/Form/FormContainer";
 import { Button } from "native-base";
 import { useNavigation } from '@react-navigation/native';
-
+import Error from '../../Shared/Error'
 const Login = (props) => {
 
     const [email, setEmail] = useState('')
@@ -14,17 +14,17 @@ const Login = (props) => {
 
     const handleSubmit = () => {
         const user = {
-          email,
-          password,
+            email,
+            password,
         };
-    
+
         if (email === "" || password === "") {
-          setError("Please fill in your credentials");
+            setError("Please fill in your credentials");
         } else {
-        //   loginUser(user, context.dispatch);
-        console.log("error")
+            //   loginUser(user, context.dispatch);
+            console.log("error")
         }
-      }
+    }
     return (
         <FormContainer>
             <Input
@@ -43,7 +43,8 @@ const Login = (props) => {
                 onChangeText={(text) => setPassword(text)}
             />
             <View style={styles.buttonGroup}>
-                <Button variant={"ghost"}>Login</Button>
+                {error ? <Error message={error} /> : null}
+                <Button variant={"ghost"} onPress={() => handleSubmit()} >Login</Button>
             </View>
             <View style={[{ marginTop: 40 }, styles.buttonGroup]}>
                 <Text style={styles.middleText}>Dont' Have an Account yet?</Text>
