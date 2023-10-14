@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native"
 import { View, StyleSheet, FlatList, ActivityIndicator, ScrollView, Dimensions } from 'react-native'
 import { Container, Header, Icon, Item, Input, Text, VStack, Heading, Center, } from "native-base";
 import { Ionicons, MaterialIcons, SmallCloseIcon } from "@expo/vector-icons";
@@ -22,44 +23,45 @@ const ProductContainer = () => {
     const [active, setActive] = useState([]);
     const [initialState, setInitialState] = useState([])
     const [productsCtg, setProductsCtg] = useState([])
-    useEffect(() => {
-        setFocus(false);
-        setActive(-1)
-        axios
-            .get(`${baseURL}products`)
-            .then((res) => {
-                console.log(res.data)
-                setProducts(res.data);
-                setProductsFiltered(res.data);
-                setProductsCtg(res.data);
-                setInitialState(res.data);
-                // setLoading(false)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+    const [loading, setLoading] = useState(true)
+    // useEffect(() => {
+    //     setFocus(false);
+    //     setActive(-1)
+    //     axios
+    //         .get(`${baseURL}products`)
+    //         .then((res) => {
+    //             console.log(res.data)
+    //             setProducts(res.data);
+    //             setProductsFiltered(res.data);
+    //             setProductsCtg(res.data);
+    //             setInitialState(res.data);
+    //             // setLoading(false)
+    //         })
+    //         .catch((error) => {
+    //             console.log(error)
+    //         })
 
-        axios
-            .get(`${baseURL}categories`)
-            .then((res) => {
-                setCategories(res.data)
-            })
-            .catch((error) => {
-                console.log('Api call error')
-            })
+    //     axios
+    //         .get(`${baseURL}categories`)
+    //         .then((res) => {
+    //             setCategories(res.data)
+    //         })
+    //         .catch((error) => {
+    //             console.log('Api call error')
+    //         })
 
-        return () => {
-            setProducts([]);
-            setProductsFiltered([]);
-            setFocus();
-            setCategories([]);
-            setActive();
-            setInitialState();
-            setProductsCtg()
-            // setLoading()
-        };
+    //     return () => {
+    //         setProducts([]);
+    //         setProductsFiltered([]);
+    //         setFocus();
+    //         setCategories([]);
+    //         setActive();
+    //         setInitialState();
+    //         setProductsCtg()
+    //         // setLoading()
+    //     };
 
-    }, [])
+    // }, [])
 
     const searchProduct = (text) => {
         console.log(text)
@@ -88,6 +90,49 @@ const ProductContainer = () => {
                 ];
         }
     };
+
+    useFocusEffect((
+        useCallback(
+            () => {
+                setFocus(false);
+                setActive(-1);
+
+                // Products
+                axios
+                    .get(`${baseURL}products`)
+                    .then((res) => {
+                        setProducts(res.data);
+                        setProductsFiltered(res.data);
+                        setProductsCtg(res.data);
+                        setInitialState(res.data);
+                        setLoading(false)
+                    })
+                    .catch((error) => {
+                        console.log('Api call error')
+                    })
+
+                // Categories
+                axios
+                    .get(`${baseURL}categories`)
+                    .then((res) => {
+                        setCategories(res.data)
+                    })
+                    .catch((error) => {
+                        console.log('Api call error')
+                    })
+
+                return () => {
+                    setProducts([]);
+                    setProductsFiltered([]);
+                    setFocus();
+                    setCategories([]);
+                    setActive();
+                    setInitialState();
+                };
+            },
+            [],
+        )
+    ))
     console.log(productsFiltered)
 
     return (
