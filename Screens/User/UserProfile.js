@@ -6,9 +6,9 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import axios from "axios"
-import baseURL from "../../assets/common/baseurl"
+import baseURL from "../../assets/common/baseUrl"
 
-import AuthGlobal from "../../Context/store/AuthGlobal"
+import AuthGlobal from "../../Context/Store/AuthGlobal"
 import { logoutUser } from "../../Context/Actions/Auth.actions"
 
 
