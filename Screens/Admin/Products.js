@@ -24,23 +24,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 var { height, width } = Dimensions.get("window")
 
 const ListHeader = () => {
-    return(
+    return (
         <View
             elevation={1}
             style={styles.listHeader}
         >
             <View style={styles.headerItem}></View>
             <View style={styles.headerItem}>
-                <Text style={{ fontWeight: '600'}}>Brand</Text>
+                <Text style={{ fontWeight: '600' }}>Brand</Text>
             </View>
             <View style={styles.headerItem}>
-                <Text style={{ fontWeight: '600'}}>Name</Text>
+                <Text style={{ fontWeight: '600' }}>Name</Text>
             </View>
             <View style={styles.headerItem}>
-                <Text style={{ fontWeight: '600'}}>Category</Text>
+                <Text style={{ fontWeight: '600' }}>Category</Text>
             </View>
             <View style={styles.headerItem}>
-                <Text style={{ fontWeight: '600'}}>Price</Text>
+                <Text style={{ fontWeight: '600' }}>Price</Text>
             </View>
         </View>
     )
@@ -52,6 +52,17 @@ const Products = (props) => {
     const [productFilter, setProductFilter] = useState();
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState();
+
+    const searchProduct = (text) => {
+        if (text === "") {
+            setProductFilter(productList)
+        }
+        setProductFilter(
+            productList.filter((i) =>
+                i.name.toLowerCase().includes(text.toLowerCase())
+            )
+        )
+    }
 
     useFocusEffect(
         useCallback(
@@ -88,29 +99,27 @@ const Products = (props) => {
         <Box flex={1}>
             <Searchbar width="80%"
                 placeholder="Search"
-            //   onChangeText={onChangeSearch}
+                onChangeText={(text) => searchProduct(text)}
             //   value={searchQuery}
             />
             {loading ? (
-          <View style={styles.spinner}> 
-              <ActivityIndicator size="large" color="red" />
-          </View>
-      ) : ( 
-        <FlatList 
-            data={productFilter}
-            ListHeaderComponent={ListHeader}
-            renderItem={({ item, index }) => (
-                <ListItem 
-                   item={item}
-                   
-                    index={index}
-                   
+                <View style={styles.spinner}>
+                    <ActivityIndicator size="large" color="red" />
+                </View>
+            ) : (
+                <FlatList
+                    data={productFilter}
+                    ListHeaderComponent={ListHeader}
+                    renderItem={({ item, index }) => (
+                        <ListItem
+                            item={item}
+                            index={index}
+                        />
+
+                    )}
+                    keyExtractor={(item) => item.id}
                 />
-                
             )}
-            keyExtractor={(item) => item.id}
-          />
-      )}
         </Box>
     );
 }
