@@ -63,6 +63,17 @@ const Products = (props) => {
             )
         )
     }
+    const deleteProduct = (id) => {
+        axios
+            .delete(`${baseURL}products/${id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((res) => {
+                const products = productFilter.filter((item) => item.id !== id)
+                setProductFilter(products)
+            })
+            .catch((error) => console.log(error));
+    }
 
     useFocusEffect(
         useCallback(
@@ -114,6 +125,7 @@ const Products = (props) => {
                         <ListItem
                             item={item}
                             index={index}
+                            deleteProduct={deleteProduct}
                         />
 
                     )}
