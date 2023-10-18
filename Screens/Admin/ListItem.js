@@ -19,7 +19,6 @@ const ListItem = ({item, index}) => {
     console.log(item)
     return(
         <View>
-
             <TouchableOpacity
                
                 style={[styles.container, {

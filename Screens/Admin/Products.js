@@ -7,10 +7,10 @@ import {
     StyleSheet,
     Dimensions,
     Container,
-   
+
     Button
 } from "react-native";
-import { Input, VStack, Heading,Box } from "native-base"
+import { Input, VStack, Heading, Box } from "native-base"
 import Icon from "react-native-vector-icons/FontAwesome"
 import { useFocusEffect } from "@react-navigation/native"
 import { Searchbar } from 'react-native-paper';
@@ -19,11 +19,32 @@ import ListItem from "./ListItem"
 import axios from "axios"
 import baseURL from "../../assets/common/baseUrl"
 import AsyncStorage from '@react-native-async-storage/async-storage'
-  
+
 
 var { height, width } = Dimensions.get("window")
 
-
+const ListHeader = () => {
+    return(
+        <View
+            elevation={1}
+            style={styles.listHeader}
+        >
+            <View style={styles.headerItem}></View>
+            <View style={styles.headerItem}>
+                <Text style={{ fontWeight: '600'}}>Brand</Text>
+            </View>
+            <View style={styles.headerItem}>
+                <Text style={{ fontWeight: '600'}}>Name</Text>
+            </View>
+            <View style={styles.headerItem}>
+                <Text style={{ fontWeight: '600'}}>Category</Text>
+            </View>
+            <View style={styles.headerItem}>
+                <Text style={{ fontWeight: '600'}}>Price</Text>
+            </View>
+        </View>
+    )
+}
 
 const Products = (props) => {
 
@@ -64,26 +85,33 @@ const Products = (props) => {
 
 
     return (
-       <Box flex={1}>
-        <Searchbar width="80%"
-            placeholder="Search"
-        //   onChangeText={onChangeSearch}
-        //   value={searchQuery}
-        />
+        <Box flex={1}>
+            <Searchbar width="80%"
+                placeholder="Search"
+            //   onChangeText={onChangeSearch}
+            //   value={searchQuery}
+            />
+            {loading ? (
+          <View style={styles.spinner}> 
+              <ActivityIndicator size="large" color="red" />
+          </View>
+      ) : ( 
         <FlatList 
             data={productFilter}
-            
+            ListHeaderComponent={ListHeader}
             renderItem={({ item, index }) => (
-                
                 <ListItem 
-                item={item}
-                index={index}
-               
-            />
+                   item={item}
+                   
+                    index={index}
+                   
+                />
+                
             )}
             keyExtractor={(item) => item.id}
           />
-       </Box>     
+      )}
+        </Box>
     );
 }
 
