@@ -19,6 +19,7 @@ var { width } = Dimensions.get("window");
 
 const ListItem = ({ item, index, deleteProduct }) => {
     const [modalVisible, setModalVisible] = useState(false)
+    const [refreshing, setRefreshing] = useState(false);
     let navigation = useNavigation()
     console.log(item)
     return (

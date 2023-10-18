@@ -8,7 +8,8 @@ import {
     Dimensions,
     Container,
 
-    Button
+    Button,
+    RefreshControl,
 } from "react-native";
 import { Input, VStack, Heading, Box } from "native-base"
 import Icon from "react-native-vector-icons/FontAwesome"
@@ -52,6 +53,7 @@ const Products = (props) => {
     const [productFilter, setProductFilter] = useState();
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState();
+    const [refreshing, setRefreshing] = useState(false);
 
     const searchProduct = (text) => {
         if (text === "") {
@@ -74,6 +76,20 @@ const Products = (props) => {
             })
             .catch((error) => console.log(error));
     }
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            axios
+                    .get(`${baseURL}products`)
+                    .then((res) => {
+                        // console.log(res.data)
+                        setProductList(res.data);
+                        setProductFilter(res.data);
+                        setLoading(false);
+                    })
+          setRefreshing(false);
+        }, 2000);
+      }, []);
 
     useFocusEffect(
         useCallback(
@@ -121,6 +137,9 @@ const Products = (props) => {
                 <FlatList
                     data={productFilter}
                     ListHeaderComponent={ListHeader}
+                    refreshControl={
+                        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                      }
                     renderItem={({ item, index }) => (
                         <ListItem
                             item={item}
