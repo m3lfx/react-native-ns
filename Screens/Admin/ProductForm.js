@@ -95,6 +95,7 @@ const ProductForm = (props) => {
             aspect: [4, 3],
             quality: 1
         });
+        // let result = await ImagePicker.launchCameraAsync()
 
         if (!result.canceled) {
             console.log(result.assets)
