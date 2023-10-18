@@ -21,7 +21,6 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from "react-native-vector-icons/FontAwesome";
 import EasyButton from '../../Shared/StyledComponents/EasyButtons';
 
-
 var { height, width } = Dimensions.get("window");
 
 const Cart = (props) => {
