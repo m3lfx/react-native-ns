@@ -4,6 +4,7 @@ import { Box, HStack, Container, H1, Center, Heading, Button } from 'native-base
 import Toast from 'react-native-toast-message';
 import * as actions from '../../Redux/Actions/cartActions';
 import { useSelector, useDispatch } from 'react-redux'
+import EasyButton from "../../Shared/StyledComponents/EasyButtons";
 const SingleProduct = (props) => {
     const [item, setItem] = useState(props.route.params.item);
     const [availability, setAvailability] = useState('')
@@ -39,15 +40,12 @@ const SingleProduct = (props) => {
             <View style={styles.bottomContainer}>
                 <HStack space={3} justifyContent="center">
                     <Text style={styles.price}>${item.price}</Text>
-                    <Button size="sm" onPress={() => {
-                        dispatch(actions.addToCart({ ...props, quantity: 1, })),
-                            Toast.show({
-                                topOffset: 60,
-                                type: "success",
-                                text1: `${item.name} added to Cart`,
-                                text2: "Go to your cart to complete order"
-                            })
-                    }}>Add</Button>
+                    <EasyButton
+                        primary
+                        medium >
+
+                        <Text style={{ color: "white" }}> Add</Text>
+                    </EasyButton>
                 </HStack>
                 {/* <HStack alignSelf="right">
                     <Button size="sm" >Add</Button>
@@ -71,7 +69,7 @@ const SingleProduct = (props) => {
                    <Button>Add</Button>
                 </Right>  */}
             </View>
-        </Center>
+        </Center >
     )
 }
 
