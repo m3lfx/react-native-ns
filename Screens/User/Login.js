@@ -74,7 +74,14 @@ const Login = (props) => {
             </View>
             <View style={[{ marginTop: 40 }, styles.buttonGroup]}>
                 <Text style={styles.middleText}>Dont' Have an Account yet?</Text>
-                <Button variant={"ghost"} onPress={() => navigation.navigate("Register")} > Register</Button>
+                {/* <Button variant={"ghost"} onPress={() => navigation.navigate("Register")} > Register</Button> */}
+                <EasyButton
+                    large
+                    secondary
+                    onPress={() => navigation.navigate("Register")}
+                >
+                    <Text style={{ color: "white" }}>Register</Text>
+                </EasyButton>
             </View>
         </FormContainer>
     )
