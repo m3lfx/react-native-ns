@@ -21,6 +21,7 @@ import axios from "axios"
 import baseURL from "../../assets/common/baseUrl"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import EasyButton from "../../Shared/StyledComponents/EasyButtons";
+import { useNavigation } from '@react-navigation/native';
 
 
 var { height, width } = Dimensions.get("window")
@@ -55,6 +56,7 @@ const Products = (props) => {
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState();
     const [refreshing, setRefreshing] = useState(false);
+    const navigation = useNavigation()
 
     const searchProduct = (text) => {
         if (text === "") {
@@ -129,7 +131,7 @@ const Products = (props) => {
                 <EasyButton
                     secondary
                     medium
-                    onPress={() => props.navigation.navigate("Orders")}
+                    onPress={() => navigation.navigate("Orders")}
                 >
                     <Icon name="shopping-bag" size={18} color="white" />
                     <Text style={styles.buttonText}>Orders</Text>
@@ -137,7 +139,7 @@ const Products = (props) => {
                 <EasyButton
                     secondary
                     medium
-                    onPress={() => props.navigation.navigate("ProductForm")}
+                    onPress={() => navigation.navigate("ProductForm")}
                 >
                     <Icon name="plus" size={18} color="white" />
                     <Text style={styles.buttonText}>Products</Text>
@@ -145,7 +147,7 @@ const Products = (props) => {
                 <EasyButton
                     secondary
                     medium
-                    onPress={() => props.navigation.navigate("Categories")}
+                    onPress={() => navigation.navigate("Categories")}
                 >
                     <Icon name="plus" size={18} color="white" />
                     <Text style={styles.buttonText}>Categories</Text>
