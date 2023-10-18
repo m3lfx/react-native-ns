@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components/native";
+import styled, { css } from "styled-components";
 
 const TrafficLight = styled.View`
   border-radius: 50px;

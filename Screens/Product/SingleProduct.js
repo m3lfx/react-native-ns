@@ -5,10 +5,30 @@ import Toast from 'react-native-toast-message';
 import * as actions from '../../Redux/Actions/cartActions';
 import { useSelector, useDispatch } from 'react-redux'
 import EasyButton from "../../Shared/StyledComponents/EasyButtons";
+import TrafficLight from "../../Shared/StyledComponents/TrafficLight";
 const SingleProduct = (props) => {
     const [item, setItem] = useState(props.route.params.item);
-    const [availability, setAvailability] = useState('')
+    
+    const [availability, setAvailability] = useState(null)
+    const [availabilityText, setAvailabilityText] = useState("")
     const dispatch = useDispatch()
+    useEffect(() => {
+        if (item.countInStock == 0) {
+            setAvailability(<TrafficLight unavailable></TrafficLight>);
+            setAvailabilityText("Unvailable")
+        } else if (item.countInStock <= 5) {
+            setAvailability(<TrafficLight limited></TrafficLight>);
+            setAvailabilityText("Limited Stock")
+        } else {
+            setAvailability(<TrafficLight available></TrafficLight>);
+            setAvailabilityText("Available")
+        }
+
+        return () => {
+            setAvailability(null);
+            setAvailabilityText("");
+        }
+    }, [])
     return (
 
         <Center flexGrow={1}>
@@ -27,7 +47,7 @@ const SingleProduct = (props) => {
                     <Heading style={styles.contentHeader} size='xl'>{item.name}</Heading>
                     <Text style={styles.contentText}>{item.brand}</Text>
                 </View>
-                {/* <View style={styles.availabilityContainer}>
+                <View style={styles.availabilityContainer}>
                     <View style={styles.availability}>
                         <Text style={{ marginRight: 10 }}>
                             Availability: {availabilityText}
@@ -35,7 +55,7 @@ const SingleProduct = (props) => {
                         {availability}
                     </View>
                     <Text>{item.description}</Text>
-                </View> */}
+                </View>
             </ScrollView>
             <View style={styles.bottomContainer}>
                 <HStack space={3} justifyContent="center">
