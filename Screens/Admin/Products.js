@@ -14,7 +14,7 @@ import { Input, VStack, Heading,Box } from "native-base"
 import Icon from "react-native-vector-icons/FontAwesome"
 import { useFocusEffect } from "@react-navigation/native"
 import { Searchbar } from 'react-native-paper';
-// import ListItem from "./ListItem"
+import ListItem from "./ListItem"
 
 import axios from "axios"
 import baseURL from "../../assets/common/baseUrl"
@@ -75,7 +75,11 @@ const Products = (props) => {
             
             renderItem={({ item, index }) => (
                 
-                <Text>{item.name}</Text>
+                <ListItem 
+                item={item}
+                index={index}
+               
+            />
             )}
             keyExtractor={(item) => item.id}
           />
