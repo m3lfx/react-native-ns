@@ -9,6 +9,7 @@ import Error from "../../Shared/Error";
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 import Toast from "react-native-toast-message";
+import EasyButton from "../../Shared/StyledComponents/EasyButtons";
 
 const Register = (props) => {
   const [email, setEmail] = useState("");
@@ -96,16 +97,26 @@ const Register = (props) => {
           {error ? <Error message={error} /> : null}
         </View>
         <View>
-          <Button variant={"ghost"} onPress={() => register()}>
+          {/* <Button variant={"ghost"} onPress={() => register()}>
             <Text style={{ color: "blue" }}>Register</Text>
-          </Button>
+          </Button> */}
+          <EasyButton large primary onPress={() => register()}>
+            <Text style={{ color: "white" }}>Register</Text>
+          </EasyButton>
         </View>
         <View>
-          <Button variant={"ghost"}
+        <EasyButton
+            large
+            secondary
+            onPress={() => navigation.navigate("Login")}
+          >
+            <Text style={{ color: "white" }}>Back to Login</Text>
+          </EasyButton>
+          {/* <Button variant={"ghost"}
             onPress={() => navigation.navigate("Login")}
           >
             <Text style={{ color: "blue" }}>Back to Login</Text>
-          </Button>
+          </Button> */}
         </View>
       </FormContainer>
     </KeyboardAwareScrollView>
