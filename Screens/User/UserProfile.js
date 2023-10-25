@@ -26,7 +26,7 @@ const UserProfile = (props) => {
             ) {
                 navigation.navigate("Login")
             }
-            console.log(context.stateUser.user)
+
             AsyncStorage.getItem("jwt")
                 .then((res) => {
                     axios
@@ -50,17 +50,18 @@ const UserProfile = (props) => {
                         }
                     );
                     // const userOrders = data
-                    
+
                     setOrders(userOrders);
                 })
                 .catch((error) => console.log(error))
 
             return () => {
                 setUserProfile();
+                setOrders();
             }
 
         }, [context.stateUser.isAuthenticated]))
-console.log(orders)
+    console.log("orders", orders)
     return (
         <Container style={styles.container}>
             <ScrollView contentContainerStyle={styles.subContainer}>
@@ -86,7 +87,8 @@ console.log(orders)
                     <View>
                         {orders ? (
                             orders.map((order) => {
-                                return <OrderCard key={order.id} item={order} />;
+                                console.log(order)
+                                // return <OrderCard key={order.id} item={order} />;
                             })
                         ) : (
                             <View style={styles.order}>

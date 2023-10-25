@@ -8,6 +8,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
+import AuthGlobal from "../../../Context/Store/AuthGlobal"
 
 const countries = require("../../../assets/countries.json");
 
@@ -20,12 +21,25 @@ const Checkout = (props) => {
     const [zip, setZip] = useState('')
     const [country, setCountry] = useState('')
     const [phone, setPhone] = useState('')
+    const [user, setUser] = useState({})
 
     const navigation = useNavigation()
     const cartItems = useSelector(state => state.cartItems)
+    const context = useContext(AuthGlobal);
 
     useEffect(() => {
         setOrderItems(cartItems)
+        if(context.stateUser.isAuthenticated) {
+            setUser(context.stateUser.user.userId)
+        } else {
+            navigation.navigate("User",{ screen: 'Login' });
+            Toast.show({
+                topOffset: 60,
+                type: "error",
+                text1: "Please Login to Checkout",
+                text2: ""
+            });
+        }
         return () => {
             setOrderItems();
         }
