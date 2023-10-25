@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { Picker, Select } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import TrafficLight from "./StyledComponents/TrafficLight";
-import EasyButton from "./StyledComponents/EasyButton";
+import EasyButton from "./StyledComponents/EasyButtons";
 import Toast from "react-native-toast-message";
 
 import AsyncStorage from '@react-native-async-storage/async-storage'

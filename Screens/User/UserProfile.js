@@ -36,12 +36,31 @@ const UserProfile = (props) => {
                         .then((user) => setUserProfile(user.data))
                 })
                 .catch((error) => console.log(error))
+            axios
+                .get(`${baseURL}orders`)
+                .then((response) => {
+                    console.log("Response", response.data)
+                    // const data = x.data;
+
+                    const userOrders = response.data.filter(
+                        (order) => {
+                            console.log("order", order.user.id)
+                            //  console.log(order.user._id, context.stateUser.user.userId )
+                            order.user.id === context.stateUser.user.userId
+                        }
+                    );
+                    // const userOrders = data
+                    
+                    setOrders(userOrders);
+                })
+                .catch((error) => console.log(error))
+
             return () => {
                 setUserProfile();
             }
 
         }, [context.stateUser.isAuthenticated]))
-
+console.log(orders)
     return (
         <Container style={styles.container}>
             <ScrollView contentContainerStyle={styles.subContainer}>
@@ -62,11 +81,25 @@ const UserProfile = (props) => {
                         logoutUser(context.dispatch)
                     ]} />
                 </View>
-
+                <View style={styles.order}>
+                    <Text style={{ fontSize: 20 }}>My Orders</Text>
+                    <View>
+                        {orders ? (
+                            orders.map((order) => {
+                                return <OrderCard key={order.id} item={order} />;
+                            })
+                        ) : (
+                            <View style={styles.order}>
+                                <Text>You have no orders</Text>
+                            </View>
+                        )}
+                    </View>
+                </View>
             </ScrollView>
         </Container>
     )
 }
+
 
 const styles = StyleSheet.create({
     container: {
