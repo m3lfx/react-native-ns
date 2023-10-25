@@ -21,7 +21,7 @@ const Checkout = (props) => {
     const [zip, setZip] = useState('')
     const [country, setCountry] = useState('')
     const [phone, setPhone] = useState('')
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState('')
 
     const navigation = useNavigation()
     const cartItems = useSelector(state => state.cartItems)
